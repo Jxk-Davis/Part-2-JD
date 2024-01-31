@@ -185,7 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points: []
   newPointThreshold: 0.2
-  spe: 2
+  speMax: 3
+  speMin: 1
   landing:
     serializedVersion: 2
     m_Curve:

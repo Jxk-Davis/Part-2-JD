@@ -10,12 +10,15 @@ public class Plane : MonoBehaviour
     Rigidbody2D rb2d;
     LineRenderer lineRenderer;
     Vector2 currentPosition;
-    public float spe;
+    private float spe;
+    public float speMax;
+    public float speMin;
     public AnimationCurve landing;
     float landingTimer;
 
     private void Start()
     {
+        spe = Random.Range(speMin, speMax);
         lineRenderer = GetComponent<LineRenderer>();
         rb2d = GetComponent<Rigidbody2D>();
         ResetLineRenderer(transform.position);
