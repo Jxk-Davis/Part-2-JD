@@ -15,15 +15,16 @@ public class Plane : MonoBehaviour
     public float speMin;
     public AnimationCurve landing;
     float landingTimer;
+    SpriteRenderer sprRend;
+    public float safe;
 
     private void Start()
     {
         spe = Random.Range(speMin, speMax);
+        sprRend = GetComponent<SpriteRenderer>();
         lineRenderer = GetComponent<LineRenderer>();
         rb2d = GetComponent<Rigidbody2D>();
         ResetLineRenderer(transform.position);
-        //lineRenderer.positionCount = 1;
-        //lineRenderer.SetPosition(0, transform.position);
     }
 
     private void OnMouseDown()
@@ -35,8 +36,6 @@ public class Plane : MonoBehaviour
 
         //lines----------------------
         ResetLineRenderer(transform.position);
-        //lineRenderer.positionCount = 1;
-        //lineRenderer.SetPosition(0, transform.position);
     }
 
     private void OnMouseDrag()
@@ -95,9 +94,40 @@ public class Plane : MonoBehaviour
             }
         }
     }
+
     private void ResetLineRenderer(Vector3 position)
     {
         lineRenderer.positionCount = 1;
         lineRenderer.SetPosition(0, position);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        sprRend.material.color = Color.red;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Destroy(gameObject); ///when the beat drops...
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        Debug.Log("Onion");
+        float dist = Vector3.Distance(collision.transform.position, transform.position);
+        if (dist < safe)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        sprRend.material.color = Color.white;
     }
 }
