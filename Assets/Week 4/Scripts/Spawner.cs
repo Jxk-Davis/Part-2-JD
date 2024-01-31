@@ -8,6 +8,9 @@ public class Spawner : MonoBehaviour
     public GameObject plane;
     private float timer = 0;
     private float delay = 1;
+    
+    Vector3 position;
+    Quaternion rotation; //!!!!
 
     void Start()
     {
@@ -28,8 +31,8 @@ public class Spawner : MonoBehaviour
         Debug.Log("spawning!!");
         Vector2 pos = new Vector2(Random.Range(-5, 5), Random.Range(-5, 5)); //random place
         Vector3 rot = new Vector3(0, 0, Random.Range(1,360)); //random direction
-        transform.Rotate(0, 0, rot);
-        Instantiate(plane, pos, rot);
+        //transform.Rotate(0, 0, rot);
+        //Instantiate(plane, pos, rot);
         //instantiate the guy at a random place
         //with a random rotation
         //with a random sprite
