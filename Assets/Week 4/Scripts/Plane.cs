@@ -17,6 +17,7 @@ public class Plane : MonoBehaviour
     float landingTimer;
     SpriteRenderer sprRend;
     public float safe;
+    private bool land = false;
 
     private void Start()
     {
@@ -67,7 +68,8 @@ public class Plane : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKey(KeyCode.Space))
+        Landing();
+        if(land == true)
         {
             landingTimer += 0.1f * Time.deltaTime;
             float interpolation = landing.Evaluate(landingTimer);
@@ -103,17 +105,11 @@ public class Plane : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        sprRend.material.color = Color.red;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Destroy(gameObject); ///when the beat drops...
+        sprRend.material.color = Color.red; 
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("Onion");
         float dist = Vector3.Distance(collision.transform.position, transform.position);
         if (dist < safe)
         {
@@ -129,5 +125,14 @@ public class Plane : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         sprRend.material.color = Color.white;
+    }
+
+    private void Landing()
+    {
+        if (Physics2D.OverlapPoint(transform.position, 6))
+        {
+            land = true;
+        }
+        //Physics2D.OverlapPoint how in the world does this function? how am I supposed to use this?
     }
 }
