@@ -5,17 +5,16 @@ using UnityEngine;
 public class Snow : MonoBehaviour
 {
     //do nothing but wait for the mouse to click on you.
-    //each time the mouse clicks on you, reduce HP by 1. when HP is zero, find your elf.
+    //each time the mouse clicks on you, reduce HP by 1. when HP is zero, dis-appear....
+    public int HP;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        
+        if (HP <= 0) Destroy(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnMouseDown()
     {
-        
+        HP -= 1;
     }
 }
